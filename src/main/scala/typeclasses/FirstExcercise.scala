@@ -1,4 +1,7 @@
+package typeclasses
+
 class FirstExcercise {
+  final case class Cat(name: String, age: Int, color: String)
 
   trait Printable[A] {
     def format(a:A): String
@@ -11,6 +14,10 @@ class FirstExcercise {
 
     implicit val formatString: Printable[String] = {
       (a: String) => a
+    }
+
+    implicit val formatCat: Printable[Cat] = {
+      (a: Cat) => s"${a.name} is a ${a.age} year-old ${a.color} cat."
     }
   }
 
@@ -29,6 +36,10 @@ class FirstExcercise {
     implicit class PrintOps[A](a: A) {
       def format(implicit printable: Printable[A]): String = {
         printable.format(a)
+      }
+
+      def print(implicit printable: Printable[A]): Unit = {
+        println(printable.format(a))
       }
     }
   }
