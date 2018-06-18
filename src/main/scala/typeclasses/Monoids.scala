@@ -1,6 +1,7 @@
 package typeclasses
 
 object Monoids {
+
   def associativeLaw[A](x: A, y: A, z: A)(implicit monoid: Monoid[A]): Boolean = {
     monoid.combine(z,monoid.combine(x,y)) == monoid.combine(x, monoid.combine(y,z))
   }
@@ -53,9 +54,5 @@ object Monoids {
   class DifferenceSetMonoid[A] extends Monoid[Set[A]] {
     override def combine(x: Set[A], y: Set[A]): Set[A] = (x diff y) union (y diff x)
     override def empty: Set[A] = Set.empty
-  }
-
-  def main(args: Array[String]): Unit = {
-
   }
 }
