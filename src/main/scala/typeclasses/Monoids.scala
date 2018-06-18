@@ -54,4 +54,8 @@ object Monoids {
     override def combine(x: Set[A], y: Set[A]): Set[A] = (x diff y) union (y diff x)
     override def empty: Set[A] = Set.empty
   }
+
+  def main(args: Array[String]): Unit = {
+
+  }
 }
