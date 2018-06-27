@@ -23,13 +23,15 @@ object InvFunctor {
     }
   }
 
-  implicit def codecBox[A](implicit b: Codec[A]): Codec[Box[A]] = b.imap(x => Box(x), x => x.value)
+  implicit def codecBox[A](implicit b: Codec[A]): Codec[Box[A]] = b.imap(Box(_), _.value)
 
   case class Box[A](value: A)
 
   def main(args: Array[String]): Unit = {
     implicit val codecBool: Codec[Boolean] = stringCodec.imap(_.toBoolean, _.toString)
     implicit val codecDouble: Codec[Double] = stringCodec.imap(_.toDouble, _.toString)
+
+    val b1: Box[Double] = Box(2.2)
 
     println(encode(true))
     println(decode[Boolean]("true"))
