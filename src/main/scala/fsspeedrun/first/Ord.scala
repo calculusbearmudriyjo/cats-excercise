@@ -17,9 +17,8 @@ object Ord {
   }
 
   def compareList[T](implicit ord: Ord[T]): Ord[List[T]] = new Ord[List[T]] {
-    import Syntax.Eq._
     override def compare(x: List[T], y: List[T]): Compare = {
-      if (x === y) EQ
+      if (===(x, y)) EQ
       else if(x.size > y.size) GT
       else LT
     }
